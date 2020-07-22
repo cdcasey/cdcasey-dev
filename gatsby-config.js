@@ -19,6 +19,7 @@ const plugins = [
       name: 'content',
     },
   },
+  'gatsby-plugin-emotion',
 ];
 
 module.exports = {

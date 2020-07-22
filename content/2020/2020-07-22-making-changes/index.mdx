@@ -1,0 +1,28 @@
+---
+title: Making Changes
+date: 2020-07-22
+published: true
+tags: site info
+---
+
+# Making Changes
+
+## Styling
+
+Well, the first difference in the tutorial versus the way I wanted to do things was using Emotion instead of Styled Components. Fortunately, the Gatsby website has a nice writeup here: https://www.gatsbyjs.org/docs/emotion/. Also, if you're using VS Code, the [Styled Components plugin](https://marketplace.visualstudio.com/items?itemName=jpoissonnier.vscode-styled-components) still works great with Emotion.
+
+The only real difference in the way I did things vs the tutorial was the Emotion import. So instead of
+
+```
+import styled from 'styled-components';
+```
+
+I used
+
+```
+import styled from '@emotion/styled';
+```
+
+Everything else was the same!
+
+The next section is on actually incorporating the posts into the site. However, I think I may want to start incorporating TypeScript now so that I don't have to go through the pain of adding it to the entire site.
