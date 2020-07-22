@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "gatsby": "^2.24.8",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "scripts": {
+    "develop": "gatsby develop -o"
+  }
+}
