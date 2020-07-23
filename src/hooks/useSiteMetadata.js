@@ -12,7 +12,7 @@ export function useSiteMetadata() {
           }
         }
       }
-    `
+    `,
   );
   return site.siteMetadata;
 }
