@@ -9,7 +9,11 @@ const AppStyles = styled.main`
   margin: 0 auto;
 `;
 
-export function Layout({ children }) {
+type ExportProps = {
+  children: React.ReactChild | React.ReactChildren;
+};
+
+export function Layout({ children }: ExportProps): React.ReactElement {
   const { title, description } = useSiteMetadata();
 
   return (
@@ -19,3 +23,5 @@ export function Layout({ children }) {
     </AppStyles>
   );
 }
+
+export default Layout;

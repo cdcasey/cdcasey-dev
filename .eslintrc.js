@@ -18,6 +18,7 @@ module.exports = {
     // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
     // e.g. "@typescript-eslint/explicit-function-return-type": "off",
     'react/jsx-fragments': [2, 'element'],
+    'react/jsx-filename-extension': [1, { extensions: ['.jsx', '.tsx'] }], // allow JSX in TS files
   },
   settings: {
     react: {

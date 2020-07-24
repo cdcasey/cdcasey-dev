@@ -132,4 +132,38 @@ Now for the `.tsconfig.json` file. As I'm a TypeScript n00b, I just copy and pas
 }
 ```
 
-Running `yarn develop` reveals that everything is still working. Time for a commit, and back to the tutorial tomorrow!
+Running `yarn develop` reveals that everything is still working. Now I can change things like this
+
+```javascript
+export function Layout({ children }) {
+  const { title, description } = useSiteMetadata();
+
+  return (
+    <AppStyles>
+      <Header siteTitle={title} siteDescription={description} />
+      {children}
+    </AppStyles>
+  );
+}
+```
+
+to this
+
+```javascript
+type ExportProps = {
+  children: React.ReactChild | React.ReactChildren;
+};
+
+export function Layout({ children }: ExportProps): React.ReactElement {
+  const { title, description } = useSiteMetadata();
+
+  return (
+    <AppStyles>
+      <Header siteTitle={title} siteDescription={description} />
+      {children}
+    </AppStyles>
+  );
+}
+```
+
+Time for a commit, and back to the tutorial tomorrow!
