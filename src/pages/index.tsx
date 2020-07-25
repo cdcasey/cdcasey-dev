@@ -1,6 +1,7 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 
+import Dump from '../components/Dump';
 import { Layout } from '../components/Layout';
 
 type HomeProps = {
@@ -8,10 +9,14 @@ type HomeProps = {
     allMdx: {
       nodes: [
         {
+          id: string;
           excerpt: string;
           frontmatter: {
             title: string;
             date: string;
+          };
+          fields: {
+            slug: string;
           };
         },
       ];
@@ -20,19 +25,22 @@ type HomeProps = {
 };
 
 const Home = ({ data }: HomeProps): React.ReactElement => {
-  const posts = data.allMdx.nodes.map(({ excerpt, frontmatter }) => {
-    return (
-      <React.Fragment key={frontmatter.title}>
+  const posts = data.allMdx.nodes.map(({ excerpt, frontmatter, fields, id }) => (
+    <React.Fragment key={id}>
+      <Link to={fields.slug}>
         <h1>{frontmatter.title}</h1>
-        <p>{frontmatter.date}</p>
-        <p>{excerpt}</p>
-      </React.Fragment>
-    );
-  });
+      </Link>
+      <p>{frontmatter.date}</p>
+      <p>{excerpt}</p>
+    </React.Fragment>
+  ));
 
   return (
     <React.Fragment>
-      <Layout>{posts}</Layout>
+      <Layout>
+        <Dump data={data} />
+        {posts}
+      </Layout>
     </React.Fragment>
   );
 };
@@ -51,6 +59,9 @@ export const query = graphql`
         frontmatter {
           title
           date
+        }
+        fields {
+          slug
         }
       }
     }
