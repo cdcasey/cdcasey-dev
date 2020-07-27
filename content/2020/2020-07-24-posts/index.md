@@ -28,4 +28,5 @@ type HomeProps = {
 It seems unweildy, and I strongly suspect that there's a more sensible way to do this. But it works for now so I decide to keep it. I also notice that as I'm developing it, my code keeps compiling and running even when there's a type mismatch. It's then that I remeber that _[the gatsby plugin doesn't do type checking](https://www.gatsbyjs.org/packages/gatsby-plugin-typescript/#caveats)_. Relying on VS Code's errors, I push on. It's time to get into the node file.
 
 
+My big takeaway from working on the `gatsby-node.js` file is that the `context` part of the `createPage` API call not only goes into the page template's `graphql` query, but it also goes into the component's `pageContext` prop.
 
