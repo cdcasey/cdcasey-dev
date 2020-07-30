@@ -14,6 +14,16 @@ type PostProps = {
       body: string;
     };
   };
+  pageContext: {
+    previous: {
+      fields: { slug: string };
+      frontmatter: { title: string };
+    };
+    next: {
+      fields: { slug: string };
+      frontmatter: { title: string };
+    };
+  };
 };
 
 export default function Post({ data, pageContext }: PostProps): React.ReactElement {
