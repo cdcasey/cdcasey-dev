@@ -1,7 +1,6 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
 
-import Dump from '../components/Dump';
 import { Layout } from '../components/Layout';
 
 type HomeProps = {
@@ -37,10 +36,7 @@ const Home = ({ data }: HomeProps): React.ReactElement => {
 
   return (
     <React.Fragment>
-      <Layout>
-        <Dump data={data} />
-        {posts}
-      </Layout>
+      <Layout>{posts}</Layout>
     </React.Fragment>
   );
 };
