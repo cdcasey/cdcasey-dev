@@ -6,6 +6,8 @@ const StyledH1 = styled.h1`
   color: rebeccapurple;
 `;
 
+StyledH1.defaultProps = { className: 'site-header' };
+
 type HeaderProps = {
   siteTitle: string;
   siteDescription: string;
