@@ -27,7 +27,7 @@ const Home = ({ data }: HomeProps): React.ReactElement => {
   const posts = data.allMdx.nodes.map(({ excerpt, frontmatter, fields, id }) => (
     <React.Fragment key={id}>
       <Link to={fields.slug}>
-        <h1>{frontmatter.title}</h1>
+        <h2>{frontmatter.title}</h2>
       </Link>
       <p>{frontmatter.date}</p>
       <p>{excerpt}</p>

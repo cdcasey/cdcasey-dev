@@ -32,7 +32,7 @@ export default function Post({ data, pageContext }: PostProps): React.ReactEleme
 
   return (
     <Layout>
-      <h1>{frontmatter.title}</h1>
+      <h2>{frontmatter.title}</h2>
       <p>{frontmatter.date}</p>
       <MDXRenderer>{body}</MDXRenderer>
       {previous && (
