@@ -36,7 +36,7 @@ const createPages = ({ actions, graphql }) => {
     }
   `).then((result) => {
     if (result.errors) {
-      throw errors;
+      throw result.errors;
     }
 
     const posts = result.data.allMdx.nodes;
