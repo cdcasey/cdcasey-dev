@@ -1,7 +1,8 @@
 // https://github.com/gatsbyjs/gatsby/blob/master/www/src/utils/copy-to-clipboard.js
 
 export const copyToClipboard = (str) => {
-  const clipboard = window.navigator.clipboard;
+  // const clipboard = window.navigator.clipboard;
+  const { clipboard } = window.navigator;
   /*
    * fallback to older browsers (including Safari)
    * if clipboard API not supported
@@ -28,3 +29,5 @@ export const copyToClipboard = (str) => {
 
   return clipboard.writeText(str);
 };
+
+export default copyToClipboard;

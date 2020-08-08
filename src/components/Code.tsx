@@ -1,5 +1,6 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import Highlight, { defaultProps } from 'prism-react-renderer';
+import Highlight, { defaultProps, Language } from 'prism-react-renderer';
 import styled from '@emotion/styled';
 import theme from 'prism-react-renderer/themes/nightOwl';
 
@@ -21,6 +22,7 @@ export const Pre = styled.pre`
 
 export const CopyCode = styled.button`
   position: absolute;
+  top: 0;
   right: 0.25rem;
   border: 0;
   border-radius: 3px;
@@ -39,7 +41,12 @@ export const LineNo = styled.span`
   opacity: 0.3;
 `;
 
-export const Code = ({ codeString, language }) => {
+type CodeProps = {
+  codeString: string;
+  language: Language;
+};
+
+export const Code = ({ codeString, language }: CodeProps): React.ReactElement => {
   const handleClick = () => {
     copyToClipboard(codeString);
   };
@@ -50,7 +57,7 @@ export const Code = ({ codeString, language }) => {
         <Pre className={className} style={style}>
           <CopyCode onClick={handleClick}>Copy</CopyCode>
           {tokens.map((line, i) => (
-            <div key={line} {...getLineProps({ line, key: i })}>
+            <div key={line.toString()} {...getLineProps({ line, key: i })}>
               <LineNo>{i + 1}</LineNo>
               {line.map((token, key) => (
                 <span key="token" {...getTokenProps({ token, key })} />

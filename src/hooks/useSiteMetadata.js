@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import { graphql, useStaticQuery } from 'gatsby';
 
 export function useSiteMetadata() {
