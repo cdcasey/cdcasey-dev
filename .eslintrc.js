@@ -3,14 +3,7 @@ module.exports = {
     browser: true,
     es2020: true,
   },
-  parser: '@typescript-eslint/parser', // Specifies the ESLint parser
-  extends: [
-    // 'airbnb',
-    'plugin:react/recommended', // Uses the recommended rules from @eslint-plugin-react
-    'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
-    'prettier/@typescript-eslint', // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
-    'plugin:prettier/recommended', // Enables eslint-plugin-prettier and displays prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
-  ],
+  extends: ['airbnb', 'prettier', 'prettier/react'],
   parserOptions: {
     ecmaVersion: 2020, // Allows for the parsing of modern ECMAScript features
     sourceType: 'module', // Allows for the use of imports
@@ -24,11 +17,30 @@ module.exports = {
     'react/jsx-fragments': [2, 'element'],
     'react/jsx-filename-extension': [1, { extensions: ['.jsx', '.tsx'] }], // allow JSX in TS files
   },
-  settings: {
-    react: {
-      version: 'detect', // Tells eslint-plugin-react to automatically detect the version of React to use
+  overrides: [
+    {
+      files: '**/*.+(ts|tsx)',
+      parser: '@typescript-eslint/parser',
+      parserOptions: {
+        project: './tsconfig.json',
+      },
+      plugins: ['@typescript-eslint/eslint-plugin'],
+      extends: [
+        'plugin:@typescript-eslint/eslint-recommended',
+        'plugin:@typescript-eslint/recommended',
+        'eslint-config-prettier/@typescript-eslint',
+      ],
+      rules: {
+        'import/extensions': ['error', 'never'],
+      },
     },
-    // not sure this actually did anything
+  ],
+  settings: {
+    //   react: {
+    //     version: 'detect', // Tells eslint-plugin-react to automatically detect the version of React to use
+    //   },
+    // 'import/extensions': ['.js', '.jsx', '.ts', '.tsx'],
+    // not sure this actually did anything. Update: it did SOMETHING for module imports (plus the TS rules)
     'import/resolver': {
       node: {
         paths: ['src'],
