@@ -3,6 +3,7 @@ import React from 'react';
 import Highlight, { defaultProps, Language } from 'prism-react-renderer';
 import styled from '@emotion/styled';
 import theme from 'prism-react-renderer/themes/nightOwl';
+import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 
 import { copyToClipboard } from '../utils/copy-to-clipboard';
 
@@ -44,9 +45,21 @@ export const LineNo = styled.span`
 type CodeProps = {
   codeString: string;
   language: Language;
+  'react-live': boolean;
 };
 
-export const Code = ({ codeString, language }: CodeProps): React.ReactElement => {
+export const Code = ({ codeString, language, ...props }: CodeProps): React.ReactElement => {
+  // eslint-disable-next-line react/destructuring-assignment
+  if (props['react-live']) {
+    return (
+      <LiveProvider code={codeString} noInline theme={theme}>
+        <LiveEditor />
+        <LiveError />
+        <LivePreview />
+      </LiveProvider>
+    );
+  }
+
   const handleClick = () => {
     copyToClipboard(codeString);
   };
