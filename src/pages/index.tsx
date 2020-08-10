@@ -1,7 +1,17 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
+import GatsbyImage, { FluidObject } from 'gatsby-image';
+import styled from '@emotion/styled';
 
 import { Layout } from '../components/Layout';
+
+const IndexWrapper = styled.main``;
+
+const PostWrapper = styled.div``;
+
+const Image = styled(GatsbyImage)`
+  border-radius: 5px;
+`;
 
 type HomeProps = {
   data: {
@@ -13,6 +23,11 @@ type HomeProps = {
           frontmatter: {
             title: string;
             date: string;
+            cover: {
+              childImageSharp: {
+                sizes: FluidObject;
+              };
+            };
           };
           fields: {
             slug: string;
@@ -25,19 +40,20 @@ type HomeProps = {
 
 const Home = ({ data }: HomeProps): React.ReactElement => {
   const posts = data.allMdx.nodes.map(({ excerpt, frontmatter, fields, id }) => (
-    <React.Fragment key={id}>
+    <PostWrapper key={id}>
       <Link to={fields.slug}>
+        {frontmatter.cover ? <Image fluid={frontmatter.cover.childImageSharp.sizes} /> : null}
         <h2>{frontmatter.title}</h2>
       </Link>
       <p>{frontmatter.date}</p>
       <p>{excerpt}</p>
-    </React.Fragment>
+    </PostWrapper>
   ));
 
   return (
-    <React.Fragment>
-      <Layout>{posts}</Layout>
-    </React.Fragment>
+    <Layout>
+      <IndexWrapper>{posts}</IndexWrapper>
+    </Layout>
   );
 };
 
@@ -54,7 +70,15 @@ export const query = graphql`
         excerpt(pruneLength: 250)
         frontmatter {
           title
-          date
+          date(formatString: "YYYY MMMM Do")
+          cover {
+            publicURL
+            childImageSharp {
+              sizes(maxWidth: 2000, traceSVG: { color: "#639" }) {
+                ...GatsbyImageSharpSizes_tracedSVG
+              }
+            }
+          }
         }
         fields {
           slug

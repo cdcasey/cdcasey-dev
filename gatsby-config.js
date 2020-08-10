@@ -9,6 +9,22 @@ const plugins = [
     resolve: `gatsby-plugin-mdx`,
     options: {
       extensions: [`.mdx`, `.md`],
+      gatsbyRemarkPlugins: [
+        {
+          resolve: `gatsby-remark-images`,
+          options: {
+            maxWidth: 590,
+          },
+        },
+      ],
+      plugins: [
+        {
+          resolve: `gatsby-remark-images`,
+          options: {
+            maxWidth: 590,
+          },
+        },
+      ],
     },
   },
   {
@@ -20,6 +36,8 @@ const plugins = [
   },
   `gatsby-plugin-emotion`,
   `gatsby-plugin-typescript`,
+  `gatsby-transformer-sharp`,
+  `gatsby-plugin-sharp`,
 ];
 
 module.exports = {
