@@ -2,8 +2,10 @@ import React from 'react';
 import { graphql, Link } from 'gatsby';
 import GatsbyImage, { FluidObject } from 'gatsby-image';
 import styled from '@emotion/styled';
+import SEO from 'react-seo-component';
 
 import { Layout } from '../components/Layout';
+import { useSiteMetadata } from '../hooks/useSiteMetadata';
 
 const IndexWrapper = styled.main``;
 
@@ -39,6 +41,16 @@ type HomeProps = {
 };
 
 const Home = ({ data }: HomeProps): React.ReactElement => {
+  const {
+    description,
+    title,
+    titleTemplate,
+    image,
+    siteUrl,
+    siteLanguage,
+    siteLocale,
+    twitterUsername,
+  } = useSiteMetadata();
   const posts = data.allMdx.nodes.map(({ excerpt, frontmatter, fields, id }) => (
     <PostWrapper key={id}>
       <Link to={fields.slug}>
@@ -52,6 +64,17 @@ const Home = ({ data }: HomeProps): React.ReactElement => {
 
   return (
     <Layout>
+      <SEO
+        title={title}
+        titleTemplate={titleTemplate}
+        // titleSeparator="-"
+        description={description}
+        image={`${siteUrl}${image}`}
+        pathname={siteUrl}
+        siteLanguage={siteLanguage}
+        siteLocale={siteLocale}
+        twitterUsername={twitterUsername}
+      />
       <IndexWrapper>{posts}</IndexWrapper>
     </Layout>
   );

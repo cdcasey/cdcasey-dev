@@ -8,8 +8,14 @@ export function useSiteMetadata() {
         site {
           siteMetadata {
             title
+            titleTemplate
             description
             author
+            siteUrl
+            siteLanguage
+            siteLocale
+            twitterUsername
+            authorName
           }
         }
       }

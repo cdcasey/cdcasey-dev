@@ -1,8 +1,10 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
+import SEO from 'react-seo-component';
 
 import { Layout } from '../components/Layout';
+import { useSiteMetadata } from '../hooks/useSiteMetadata';
 
 type PostProps = {
   data: {
@@ -10,8 +12,15 @@ type PostProps = {
       frontmatter: {
         title: string;
         date: string;
+        cover: {
+          publicURL: string;
+        };
       };
       body: string;
+      excerpt: string;
+      fields: {
+        slug: string;
+      };
     };
   };
   pageContext: {
@@ -27,11 +36,39 @@ type PostProps = {
 };
 
 export default function Post({ data, pageContext }: PostProps): React.ReactElement {
-  const { frontmatter, body } = data.mdx;
+  const {
+    image,
+    siteUrl,
+    siteLanguage,
+    siteLocale,
+    twitterUsername,
+    authorName,
+    titleTemplate,
+  } = useSiteMetadata();
+
+  const { frontmatter, body, excerpt, fields } = data.mdx;
   const { previous, next } = pageContext;
 
   return (
     <Layout>
+      <SEO
+        title={frontmatter.title}
+        titleTemplate={titleTemplate}
+        description={excerpt}
+        image={
+          frontmatter.cover === null
+            ? `${siteUrl}${image}`
+            : `${siteUrl}${frontmatter.cover.publicURL}`
+        }
+        pathname={`${siteUrl}${fields.slug}`}
+        siteLanguage={siteLanguage}
+        siteLocale={siteLocale}
+        twitterUsername={twitterUsername}
+        author={authorName}
+        article
+        datePublished={frontmatter.date}
+        dateModified={new Date(Date.now()).toISOString()}
+      />
       <h2>{frontmatter.title}</h2>
       <p>{frontmatter.date}</p>
       <MDXRenderer>{body}</MDXRenderer>
@@ -56,6 +93,14 @@ export const query = graphql`
       frontmatter {
         title
         date(formatString: "YYYY MMMM Do")
+        cover {
+          publicURL
+        }
+      }
+      body
+      excerpt
+      fields {
+        slug
       }
     }
   }
