@@ -10,7 +10,7 @@ StyledH1.defaultProps = { className: 'site-header' };
 
 type HeaderProps = {
   siteTitle: string;
-  siteDescription: string;
+  siteDescription?: string;
 };
 
 // interface HeaderProps {

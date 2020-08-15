@@ -17,7 +17,7 @@ const AppStyles = styled.main`
 `;
 
 type ExportProps = {
-  children?: React.ReactChild | React.ReactChildren | React.ReactElement[];
+  children: React.ReactChild | React.ReactChildren | React.ReactElement[];
 };
 
 export function Layout({ children }: ExportProps): React.ReactElement {
