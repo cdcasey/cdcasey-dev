@@ -2,8 +2,11 @@
 import React from 'react';
 import Highlight, { defaultProps, Language } from 'prism-react-renderer';
 import styled from '@emotion/styled';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
 import theme from 'prism-react-renderer/themes/nightOwl';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
+import rangeParser from 'parse-numeric-range';
 
 import { copyToClipboard } from '../utils/copy-to-clipboard';
 
@@ -46,6 +49,11 @@ type CodeProps = {
   codeString: string;
   language: Language;
   'react-live': boolean;
+  metastring?: string;
+};
+
+const defaultCodeProps = {
+  metastring: '',
 };
 
 export const Code = ({ codeString, language, ...props }: CodeProps): React.ReactElement => {
@@ -60,6 +68,10 @@ export const Code = ({ codeString, language, ...props }: CodeProps): React.React
     );
   }
 
+  const { metastring } = props;
+  let numbers: number[] = [];
+  numbers = rangeParser(metastring);
+
   const handleClick = () => {
     copyToClipboard(codeString);
   };
@@ -69,18 +81,46 @@ export const Code = ({ codeString, language, ...props }: CodeProps): React.React
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <Pre className={className} style={style}>
           <CopyCode onClick={handleClick}>Copy</CopyCode>
-          {tokens.map((line, i) => (
-            <div key={line.toString()} {...getLineProps({ line, key: i })}>
-              <LineNo>{i + 1}</LineNo>
-              {line.map((token, key) => (
-                <span key="token" {...getTokenProps({ token, key })} />
-              ))}
-            </div>
-          ))}
+          {tokens.map((line, i) => {
+            const [firstToken] = line;
+
+            let highlightClass = css``;
+            if (numbers.indexOf(i + 1) !== -1) {
+              highlightClass = css`
+                background-color: rgb(53, 59, 69, 0.9);
+              `;
+            }
+
+            let diffClass = css``;
+            if (firstToken.content.startsWith('+')) {
+              diffClass = css`
+                background-color: darkgreen;
+              `;
+            } else if (firstToken.content.startsWith('-')) {
+              diffClass = css`
+                background-color: darkred;
+              `;
+            }
+
+            return (
+              <div
+                css={[diffClass, highlightClass]}
+                key={line.toString()}
+                {...getLineProps({ line, key: i })}
+              >
+                <LineNo>{i + 1}</LineNo>
+                {line.map((token, key) => (
+                  <span key="token" {...getTokenProps({ token, key })} />
+                ))}
+              </div>
+            );
+          })}
         </Pre>
       )}
     </Highlight>
   );
 };
+
+Code.defaultProps = defaultCodeProps;
 
 export default Code;

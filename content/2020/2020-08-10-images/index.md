@@ -1,5 +1,5 @@
 ---
-title: Images
+title: Adding Images
 date: 2020-09-10
 published: true
 tags: site info
@@ -47,4 +47,4 @@ What I quickly learned is that one of the markdown files had to have a cover ima
 
 _Update_: I've since figured out how to configure things so that I can highlight lines in the code snippets. However, I've since discovered the [gatsby-remark-vscode](https://www.gatsbyjs.org/packages/gatsby-remark-vscode/) library which can not only highlight lines but also display diffs. Once everything is set up, I'll be pulling out old code and setting things up to use it instead of prism-react-renderer.
 
-![the statue](liberty.jpg)
+_Update_ 2: gatsby-remark-vscode did not work the way I wanted it to, so so it's back to rolling my own solution for now
