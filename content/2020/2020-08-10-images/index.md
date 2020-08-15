@@ -1,6 +1,6 @@
 ---
 title: Adding Images
-date: 2020-09-10
+date: 2020-08-10
 published: true
 tags: site info
 cover: ./liberty.jpg
