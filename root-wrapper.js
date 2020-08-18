@@ -10,7 +10,10 @@ import { Code } from './src/components/Code.tsx';
 const components = {
   h2: ({ children }) => <h2 style={{ color: 'rebeccapurple' }}>{children}</h2>,
   'p.inlineCode': (props) => (
-    <code style={{ backgroundColor: 'lavender', padding: '2px 4px', borderRadius: 3 }} {...props} />
+    <code
+      style={{ color: 'black', backgroundColor: 'lavender', padding: '2px 4px', borderRadius: 3 }}
+      {...props}
+    />
   ),
   pre: ({ children: { props: childProps } }) => {
     if (childProps.mdxType === 'code') {
