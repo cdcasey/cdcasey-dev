@@ -1,8 +1,9 @@
 ---
-title: Prism
+title: Adding Prism
 date: 2020-08-03
 published: true
 tags: site info
+excerpt: Adding code blocks with syntax highlighting
 ---
 
 I follow the tutorial to add syntax highlighting to the code blocks in the MDX files. I have to say, I love the way the code blocks look in the published blog, but I'm not a huge fan of the code itself. It uses `prism-react-renderer` to apply the styles and I must say it looks like a lot more effort than just including PrismJS and linking to a theme in the `gatsby-browser.js` file. The main code that I have a problem with is the `Code.jsx` file:

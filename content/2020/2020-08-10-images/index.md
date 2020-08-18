@@ -4,6 +4,7 @@ date: 2020-08-10
 published: true
 tags: site info
 cover: ./liberty.jpg
+excerpt: Cover images (which I'll probably never use)
 ---
 
 I'm not posting about the `react-live` section because I don't think I'll ever actually use it. However, it looks like a very cool library, so I encourage you to read about it.

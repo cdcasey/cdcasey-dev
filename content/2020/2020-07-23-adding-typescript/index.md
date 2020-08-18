@@ -3,6 +3,7 @@ title: Adding TypeScript
 date: 2020-07-23
 published: true
 tags: site info
+excerpt: Strong typing makes for a better app
 ---
 
 # Adding TypeScript Support
@@ -151,7 +152,7 @@ to this
 
 ```javascript
 type ExportProps = {
-  children: React.ReactChild | React.ReactChildren;
+  children: React.ReactChild | React.ReactChildren,
 };
 
 export function Layout({ children }: ExportProps): React.ReactElement {
