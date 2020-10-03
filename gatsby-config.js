@@ -1,5 +1,5 @@
 const siteMetadata = {
-  title: `How I made this site and other thoughts`,
+  title: `cdcasey.dev`,
   titleTemplate: `my struggles with code`,
   description: `I write down helpful tips so that I remember them. You benefit. Win-win.`,
   image: `fred`,

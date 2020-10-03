@@ -28,7 +28,7 @@
     "typography-theme-github": "^0.16.19"
   },
   "scripts": {
-    "develop": "gatsby develop -o",
+    "develop": "gatsby develop",
     "lint": "eslint -c .eslintrc.js --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore .",
     "prettier": "prettier --ignore-path .gitignore \"**/*.+(js|jsx|ts|tsx|json|css|scss)\"",
     "format": "yarn prettier -- --write"
