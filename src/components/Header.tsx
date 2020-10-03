@@ -43,10 +43,6 @@ type HeaderProps = {
   // siteDescription?: string;
 };
 
-const defaultProps = {
-  siteDescription: 'hi',
-};
-
 export function Header({ siteTitle }: HeaderProps): React.ReactElement {
   const { allMdx } = useStaticQuery(
     graphql`
@@ -79,8 +75,6 @@ export function Header({ siteTitle }: HeaderProps): React.ReactElement {
     </header>
   );
 }
-
-Header.defaultProps = defaultProps;
 
 export default Header;
 // export function Header({ siteTitle, siteDescription }: HeaderProps): React.ReactElement<HeaderProps> {

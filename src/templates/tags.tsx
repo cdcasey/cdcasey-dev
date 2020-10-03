@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import kebabCase from 'lodash/kebabCase';
 
 const Tags = ({ pageContext, data }: TagProps): React.ReactElement => {
