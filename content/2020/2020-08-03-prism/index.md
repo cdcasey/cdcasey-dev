@@ -2,7 +2,7 @@
 title: Adding Prism
 date: 2020-08-03
 published: true
-tags: site info
+tags: ['site info']
 excerpt: Adding code blocks with syntax highlighting
 ---
 

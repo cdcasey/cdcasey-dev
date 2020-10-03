@@ -2,7 +2,7 @@
 title: Adding Styling
 date: 2020-08-17
 published: true
-tags: site info
+tags: ['site info', 'hi']
 excerpt: Making things look good
 ---
 

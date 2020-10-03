@@ -2,7 +2,7 @@
 title: Adding Images
 date: 2020-08-10
 published: true
-tags: site info
+tags: ['site info']
 cover: ./liberty.jpg
 excerpt: Cover images (which I'll probably never use)
 ---

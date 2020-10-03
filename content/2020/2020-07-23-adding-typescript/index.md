@@ -2,7 +2,7 @@
 title: Adding TypeScript
 date: 2020-07-23
 published: true
-tags: site info
+tags: ['site info']
 excerpt: Strong typing makes for a better app
 ---
 

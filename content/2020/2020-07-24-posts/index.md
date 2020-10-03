@@ -2,7 +2,7 @@
 title: Adding Posts
 date: 2020-07-24
 published: true
-tags: site info
+tags: ['site info']
 excerpt: Making the markdown go live
 ---
 
