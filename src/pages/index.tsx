@@ -51,6 +51,7 @@ const Home = ({ data }: HomeProps): React.ReactElement => {
     siteLocale,
     twitterUsername,
   } = useSiteMetadata();
+
   const posts = data.allMdx.nodes.map(({ excerpt, frontmatter, fields, id }) => (
     <PostWrapper key={id}>
       <Link to={fields.slug}>
