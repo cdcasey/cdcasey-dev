@@ -63,7 +63,11 @@ export function Header({ siteTitle }: HeaderProps): React.ReactElement {
 
   const tagsLinks = group.map((groupItem) => {
     const { tag } = groupItem;
-    return <TagLink to={`/tags/${kebabCase(tag)}`}>{tag}</TagLink>;
+    return (
+      <TagLink key={tag} to={`/tags/${kebabCase(tag)}`}>
+        {tag}
+      </TagLink>
+    );
   });
 
   return (
