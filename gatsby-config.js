@@ -3,7 +3,7 @@ const siteMetadata = {
   titleTemplate: `my struggles with code`,
   description: `I write down helpful tips so that I remember them. You benefit. Win-win.`,
   image: `fred`,
-  siteUrl: `https://`,
+  siteUrl: `https://cdcasey.dev`,
   siteLanguage: `en-US`,
   siteLocale: `en_us`,
   twitterUsername: `@cdcasey`,
