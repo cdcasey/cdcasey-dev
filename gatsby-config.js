@@ -2,7 +2,7 @@ const siteMetadata = {
   title: `cdcasey.dev`,
   titleTemplate: `my struggles with code`,
   description: `I write down helpful tips so that I remember them. You benefit. Win-win.`,
-  image: `fred`,
+  image: `/images/smiley.png`,
   siteUrl: `https://cdcasey.dev`,
   siteLanguage: `en-US`,
   siteLocale: `en_us`,

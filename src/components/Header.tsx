@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useStaticQuery } from 'gatsby';
+import { Link, graphql, useStaticQuery } from 'gatsby';
 import styled from '@emotion/styled';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import kebabCase from 'lodash/kebabCase';

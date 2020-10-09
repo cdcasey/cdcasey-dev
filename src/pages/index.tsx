@@ -55,7 +55,7 @@ const Home = ({ data }: HomeProps): React.ReactElement => {
   const posts = data.allMdx.nodes.map(({ excerpt, frontmatter, fields, id }) => (
     <PostWrapper key={id}>
       <Link to={fields.slug}>
-        {frontmatter.cover ? <Image fluid={frontmatter.cover.childImageSharp.sizes} /> : null}
+        {/* {frontmatter.cover ? <Image fluid={frontmatter.cover.childImageSharp.sizes} /> : null} */}
         <h2>{frontmatter.title}</h2>
       </Link>
       <p>{frontmatter.date}</p>
