@@ -69,6 +69,16 @@ const Tags = ({ pageContext, data }: TagProps): React.ReactElement => {
   //     <p>{excerpt}</p>
   //   </PostWrapper>
   // ));
+  const posts = edges.map(({ node }) => (
+    <PostWrapper key={id}>
+      <Link to={fields.slug}>
+        {/* {frontmatter.cover ? <Image fluid={frontmatter.cover.childImageSharp.sizes} /> : null} */}
+        <h2>{frontmatter.title}</h2>
+      </Link>
+      <p>{frontmatter.date}</p>
+      <p>{excerpt}</p>
+    </PostWrapper>
+  ));
 
   return (
     <Layout>
