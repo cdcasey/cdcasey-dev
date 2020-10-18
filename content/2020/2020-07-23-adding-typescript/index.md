@@ -6,11 +6,9 @@ tags: ['site info']
 excerpt: Strong typing makes for a better app
 ---
 
-# Adding TypeScript Support
-
 I am a complete TypeScript n00b, but I love everything about it that I have used so far. This section is fraught with peril, but I'm confident things will turn out ok in the end. It does occur to me at this point that I could have just used [this starter](https://www.gatsbyjs.org/starters/tylergreulich/gatsby-typescript-mdx-prismjs-starter/) and swapped out Emotion for Styled Component. But miss out on all the learning that comes from building it myself? No thank you.
 
-## Adding TypeScript Itself
+### Adding TypeScript Itself
 
 The first step is to run the following commands:
 
