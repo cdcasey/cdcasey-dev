@@ -16,6 +16,8 @@ module.exports = {
     // e.g. "@typescript-eslint/explicit-function-return-type": "off",
     'react/jsx-fragments': [2, 'element'],
     'react/jsx-filename-extension': [1, { extensions: ['.jsx', '.tsx'] }], // allow JSX in TS files
+    // Latest typescript-eslint reports import React as an error if React isn't explicitly used
+    'no-use-before-define': 'off',
   },
   overrides: [
     {

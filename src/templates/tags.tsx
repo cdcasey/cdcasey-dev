@@ -1,6 +1,5 @@
 import React from 'react';
-import { graphql, Link } from 'gatsby';
-import GatsbyImage, { FluidObject } from 'gatsby-image';
+import { Link, graphql } from 'gatsby';
 import styled from '@emotion/styled';
 import SEO from 'react-seo-component';
 
@@ -8,14 +7,12 @@ import { Layout } from '../components/Layout';
 import { useSiteMetadata } from '../hooks/useSiteMetadata';
 
 const IndexWrapper = styled.main``;
-
 const PostWrapper = styled.div``;
 
-const Image = styled(GatsbyImage)`
-  border-radius: 5px;
-`;
-
-type HomeProps = {
+type TagProps = {
+  pageContext: {
+    tag: string;
+  };
   data: {
     allMdx: {
       nodes: [
@@ -40,7 +37,7 @@ type HomeProps = {
   };
 };
 
-const Home = ({ data }: HomeProps): React.ReactElement => {
+const Tags = ({ pageContext, data }: TagProps): React.ReactElement => {
   const {
     description,
     title,
@@ -52,23 +49,29 @@ const Home = ({ data }: HomeProps): React.ReactElement => {
     twitterUsername,
   } = useSiteMetadata();
 
-  const posts = data.allMdx.nodes.map(({ excerpt, frontmatter, fields, id }) => (
-    <PostWrapper key={id}>
-      <Link to={fields.slug}>
-        {/* {frontmatter.cover ? <Image fluid={frontmatter.cover.childImageSharp.sizes} /> : null} */}
-        <h2>{frontmatter.title}</h2>
-      </Link>
-      <p>{frontmatter.date}</p>
-      <p>{excerpt}</p>
-    </PostWrapper>
-  ));
+  const { tag } = pageContext;
+  const { edges, totalCount } = data.allMdx;
+  const tagHeader = `${totalCount} post${totalCount === 1 ? '' : 's'} tagged with "${tag}"`;
+
+  const posts = edges.map(({ node }) => {
+    const { id, excerpt, fields, frontmatter } = node;
+    return (
+      <PostWrapper key={id}>
+        <Link to={fields.slug}>
+          {/* {frontmatter.cover ? <Image fluid={frontmatter.cover.childImageSharp.sizes} /> : null} */}
+          <h2>{frontmatter.title}</h2>
+        </Link>
+        <p>{frontmatter.date}</p>
+        <p>{excerpt}</p>
+      </PostWrapper>
+    );
+  });
 
   return (
     <Layout>
       <SEO
         title={title}
         titleTemplate={titleTemplate}
-        // titleSeparator="-"
         description={description}
         image={`${siteUrl}${image}`}
         pathname={siteUrl}
@@ -76,36 +79,35 @@ const Home = ({ data }: HomeProps): React.ReactElement => {
         siteLocale={siteLocale}
         twitterUsername={twitterUsername}
       />
+
+      <h5>{tagHeader}</h5>
+
       <IndexWrapper>{posts}</IndexWrapper>
     </Layout>
   );
 };
 
-export default Home;
+export default Tags;
 
-export const query = graphql`
-  query SITE_INDEX_QUERY {
+export const pageQuery = graphql`
+  query($tag: String) {
     allMdx(
+      limit: 2000
       sort: { fields: [frontmatter___date], order: DESC }
-      filter: { frontmatter: { published: { eq: true } } }
+      filter: { frontmatter: { tags: { in: [$tag] } } }
     ) {
-      nodes {
-        id
-        excerpt(pruneLength: 250)
-        frontmatter {
-          title
-          date(formatString: "YYYY MMMM Do")
-          cover {
-            publicURL
-            childImageSharp {
-              sizes(maxWidth: 2000, traceSVG: { color: "#639" }) {
-                ...GatsbyImageSharpSizes_tracedSVG
-              }
-            }
+      totalCount
+      edges {
+        node {
+          id
+          excerpt(pruneLength: 250)
+          fields {
+            slug
           }
-        }
-        fields {
-          slug
+          frontmatter {
+            title
+            date(formatString: "YYYY MMMM Do")
+          }
         }
       }
     }

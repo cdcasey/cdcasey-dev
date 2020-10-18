@@ -72,14 +72,14 @@ export default function Post({ data, pageContext }: PostProps): React.ReactEleme
       <h2>{frontmatter.title}</h2>
       <p>{frontmatter.date}</p>
       <MDXRenderer>{body}</MDXRenderer>
-      {previous && (
-        <Link to={previous.fields.slug}>
-          <p>{previous.frontmatter.title}</p>
-        </Link>
-      )}
       {next && (
         <Link to={next.fields.slug}>
-          <p>{next.frontmatter.title}</p>
+          <p>next: {next.frontmatter.title}</p>
+        </Link>
+      )}
+      {previous && (
+        <Link to={previous.fields.slug}>
+          <p>prev: {previous.frontmatter.title}</p>
         </Link>
       )}
     </Layout>

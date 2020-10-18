@@ -10,6 +10,7 @@ export function useSiteMetadata() {
             title
             titleTemplate
             description
+            image
             author
             siteUrl
             siteLanguage

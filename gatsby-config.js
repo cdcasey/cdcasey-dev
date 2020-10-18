@@ -1,9 +1,9 @@
 const siteMetadata = {
-  title: `How I made this site and other thoughts`,
+  title: `cdcasey.dev`,
   titleTemplate: `my struggles with code`,
   description: `I write down helpful tips so that I remember them. You benefit. Win-win.`,
-  image: `fred`,
-  siteUrl: `https://`,
+  image: `/images/smiley.png`,
+  siteUrl: `https://cdcasey.dev`,
   siteLanguage: `en-US`,
   siteLocale: `en_us`,
   twitterUsername: `@cdcasey`,

@@ -24,11 +24,13 @@ export function Layout({ children }: ExportProps): React.ReactElement {
   const { title, description } = useSiteMetadata();
 
   return (
-    <AppStyles>
-      <Global styles={Reset} />
+    <React.Fragment>
       <Header siteTitle={title} siteDescription={description} />
-      {children}
-    </AppStyles>
+      <AppStyles>
+        <Global styles={Reset} />
+        {children}
+      </AppStyles>
+    </React.Fragment>
   );
 }
 
