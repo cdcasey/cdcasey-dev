@@ -1,9 +1,6 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
-// eslint-disable-next-line import/no-extraneous-dependencies
-// import kebabCase from 'lodash/kebabCase';
 import styled from '@emotion/styled';
-
 import SEO from 'react-seo-component';
 
 import { Layout } from '../components/Layout';
@@ -55,37 +52,26 @@ const Tags = ({ pageContext, data }: TagProps): React.ReactElement => {
   const { tag } = pageContext;
   const { edges, totalCount } = data.allMdx;
   const tagHeader = `${totalCount} post${totalCount === 1 ? '' : 's'} tagged with "${tag}"`;
-  console.log(data);
 
-  //TODO: I think just fix the graphql query and this part
-
-  // const posts = data.allMdx.nodes.map(({ excerpt, frontmatter, fields, id }) => (
-  //   <PostWrapper key={id}>
-  //     <Link to={fields.slug}>
-  //       {/* {frontmatter.cover ? <Image fluid={frontmatter.cover.childImageSharp.sizes} /> : null} */}
-  //       <h2>{frontmatter.title}</h2>
-  //     </Link>
-  //     <p>{frontmatter.date}</p>
-  //     <p>{excerpt}</p>
-  //   </PostWrapper>
-  // ));
-  const posts = edges.map(({ node }) => (
-    <PostWrapper key={id}>
-      <Link to={fields.slug}>
-        {/* {frontmatter.cover ? <Image fluid={frontmatter.cover.childImageSharp.sizes} /> : null} */}
-        <h2>{frontmatter.title}</h2>
-      </Link>
-      <p>{frontmatter.date}</p>
-      <p>{excerpt}</p>
-    </PostWrapper>
-  ));
+  const posts = edges.map(({ node }) => {
+    const { id, excerpt, fields, frontmatter } = node;
+    return (
+      <PostWrapper key={id}>
+        <Link to={fields.slug}>
+          {/* {frontmatter.cover ? <Image fluid={frontmatter.cover.childImageSharp.sizes} /> : null} */}
+          <h2>{frontmatter.title}</h2>
+        </Link>
+        <p>{frontmatter.date}</p>
+        <p>{excerpt}</p>
+      </PostWrapper>
+    );
+  });
 
   return (
     <Layout>
       <SEO
         title={title}
         titleTemplate={titleTemplate}
-        // titleSeparator="-"
         description={description}
         image={`${siteUrl}${image}`}
         pathname={siteUrl}
@@ -93,25 +79,10 @@ const Tags = ({ pageContext, data }: TagProps): React.ReactElement => {
         siteLocale={siteLocale}
         twitterUsername={twitterUsername}
       />
-      {/* <div>
-        <h1>{tagHeader}</h1>
-        <ul>
-          {edges.map(({ node }) => {
-            const { slug } = node.fields;
-            const { title } = node.frontmatter;
-            return (
-              <li key={slug}>
-                <Link to={slug}>{title}</Link>
-              </li>
-            );
-          })}
-        </ul>
-        {/*
-              This links to a page that does not yet exist.
-              You'll come back to it!
 
-      </div> */}
-      {/* <IndexWrapper>{posts}</IndexWrapper> */}
+      <h5>{tagHeader}</h5>
+
+      <IndexWrapper>{posts}</IndexWrapper>
     </Layout>
   );
 };
@@ -128,11 +99,14 @@ export const pageQuery = graphql`
       totalCount
       edges {
         node {
+          id
+          excerpt(pruneLength: 250)
           fields {
             slug
           }
           frontmatter {
             title
+            date(formatString: "YYYY MMMM Do")
           }
         }
       }
