@@ -15,27 +15,27 @@ const Image = styled(GatsbyImage)`
   border-radius: 5px;
 `;
 
+type Post = {
+  id: string;
+  excerpt: string;
+  frontmatter: {
+    title: string;
+    date: string;
+    cover: {
+      childImageSharp: {
+        sizes: FluidObject;
+      };
+    };
+  };
+  fields: {
+    slug: string;
+  };
+};
+
 type HomeProps = {
   data: {
     allMdx: {
-      nodes: [
-        {
-          id: string;
-          excerpt: string;
-          frontmatter: {
-            title: string;
-            date: string;
-            cover: {
-              childImageSharp: {
-                sizes: FluidObject;
-              };
-            };
-          };
-          fields: {
-            slug: string;
-          };
-        },
-      ];
+      nodes: Post[];
     };
   };
 };
