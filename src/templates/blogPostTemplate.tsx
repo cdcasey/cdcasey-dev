@@ -1,39 +1,39 @@
-import React from 'react';
-import { graphql, Link } from 'gatsby';
-import { MDXRenderer } from 'gatsby-plugin-mdx';
-import SEO from 'react-seo-component';
+import React from 'react'
+import { graphql, Link } from 'gatsby'
+import { MDXRenderer } from 'gatsby-plugin-mdx'
+import SEO from 'react-seo-component'
 
-import { Layout } from '../components/Layout';
-import { useSiteMetadata } from '../hooks/useSiteMetadata';
+import { Layout } from '../components/Layout'
+import { useSiteMetadata } from '../hooks/useSiteMetadata'
 
 type PostProps = {
   data: {
     mdx: {
       frontmatter: {
-        title: string;
-        date: string;
+        title: string
+        date: string
         cover: {
-          publicURL: string;
-        };
-      };
-      body: string;
-      excerpt: string;
+          publicURL: string
+        }
+      }
+      body: string
+      excerpt: string
       fields: {
-        slug: string;
-      };
-    };
-  };
+        slug: string
+      }
+    }
+  }
   pageContext: {
     previous: {
-      fields: { slug: string };
-      frontmatter: { title: string };
-    };
+      fields: { slug: string }
+      frontmatter: { title: string }
+    }
     next: {
-      fields: { slug: string };
-      frontmatter: { title: string };
-    };
-  };
-};
+      fields: { slug: string }
+      frontmatter: { title: string }
+    }
+  }
+}
 
 export default function Post({ data, pageContext }: PostProps): React.ReactElement {
   const {
@@ -44,10 +44,10 @@ export default function Post({ data, pageContext }: PostProps): React.ReactEleme
     twitterUsername,
     authorName,
     titleTemplate,
-  } = useSiteMetadata();
+  } = useSiteMetadata()
 
-  const { frontmatter, body, excerpt, fields } = data.mdx;
-  const { previous, next } = pageContext;
+  const { frontmatter, body, excerpt, fields } = data.mdx
+  const { previous, next } = pageContext
 
   return (
     <Layout>
@@ -83,7 +83,7 @@ export default function Post({ data, pageContext }: PostProps): React.ReactEleme
         </Link>
       )}
     </Layout>
-  );
+  )
 }
 
 export const query = graphql`
@@ -104,4 +104,4 @@ export const query = graphql`
       }
     }
   }
-`;
+`

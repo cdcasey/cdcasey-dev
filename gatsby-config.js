@@ -9,7 +9,7 @@ const siteMetadata = {
   twitterUsername: `@cdcasey`,
   author: `@cdcasey, Chris Casey`,
   authorName: `Chris Casey`,
-};
+}
 
 const plugins = [
   {
@@ -51,9 +51,9 @@ const plugins = [
       pathToConfigModule: `src/utils/typography`,
     },
   },
-];
+]
 
 module.exports = {
   siteMetadata,
   plugins,
-};
+}

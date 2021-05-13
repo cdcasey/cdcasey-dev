@@ -1,41 +1,41 @@
-import React from 'react';
-import { Link, graphql } from 'gatsby';
-import styled from '@emotion/styled';
-import SEO from 'react-seo-component';
+import React from 'react'
+import { Link, graphql } from 'gatsby'
+import styled from '@emotion/styled'
+import SEO from 'react-seo-component'
 
-import { Layout } from '../components/Layout';
-import { useSiteMetadata } from '../hooks/useSiteMetadata';
+import { Layout } from '../components/Layout'
+import { useSiteMetadata } from '../hooks/useSiteMetadata'
 
-const IndexWrapper = styled.main``;
-const PostWrapper = styled.div``;
+const IndexWrapper = styled.main``
+const PostWrapper = styled.div``
 
 type TagProps = {
   pageContext: {
-    tag: string;
-  };
+    tag: string
+  }
   data: {
     allMdx: {
       nodes: [
         {
-          id: string;
-          excerpt: string;
+          id: string
+          excerpt: string
           frontmatter: {
-            title: string;
-            date: string;
+            title: string
+            date: string
             cover: {
               childImageSharp: {
-                sizes: FluidObject;
-              };
-            };
-          };
+                sizes: FluidObject
+              }
+            }
+          }
           fields: {
-            slug: string;
-          };
+            slug: string
+          }
         },
-      ];
-    };
-  };
-};
+      ]
+    }
+  }
+}
 
 const Tags = ({ pageContext, data }: TagProps): React.ReactElement => {
   const {
@@ -47,14 +47,14 @@ const Tags = ({ pageContext, data }: TagProps): React.ReactElement => {
     siteLanguage,
     siteLocale,
     twitterUsername,
-  } = useSiteMetadata();
+  } = useSiteMetadata()
 
-  const { tag } = pageContext;
-  const { edges, totalCount } = data.allMdx;
-  const tagHeader = `${totalCount} post${totalCount === 1 ? '' : 's'} tagged with "${tag}"`;
+  const { tag } = pageContext
+  const { edges, totalCount } = data.allMdx
+  const tagHeader = `${totalCount} post${totalCount === 1 ? '' : 's'} tagged with "${tag}"`
 
   const posts = edges.map(({ node }) => {
-    const { id, excerpt, fields, frontmatter } = node;
+    const { id, excerpt, fields, frontmatter } = node
     return (
       <PostWrapper key={id}>
         <Link to={fields.slug}>
@@ -64,8 +64,8 @@ const Tags = ({ pageContext, data }: TagProps): React.ReactElement => {
         <p>{frontmatter.date}</p>
         <p>{excerpt}</p>
       </PostWrapper>
-    );
-  });
+    )
+  })
 
   return (
     <Layout>
@@ -84,10 +84,10 @@ const Tags = ({ pageContext, data }: TagProps): React.ReactElement => {
 
       <IndexWrapper>{posts}</IndexWrapper>
     </Layout>
-  );
-};
+  )
+}
 
-export default Tags;
+export default Tags
 
 export const pageQuery = graphql`
   query($tag: String) {
@@ -112,4 +112,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`;
+`

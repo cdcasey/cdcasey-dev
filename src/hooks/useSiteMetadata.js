@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby'
 
 export function useSiteMetadata() {
   const { site } = useStaticQuery(
@@ -21,6 +21,6 @@ export function useSiteMetadata() {
         }
       }
     `,
-  );
-  return site.siteMetadata;
+  )
+  return site.siteMetadata
 }

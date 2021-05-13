@@ -1,44 +1,44 @@
-import React from 'react';
-import { graphql, Link } from 'gatsby';
-import GatsbyImage, { FluidObject } from 'gatsby-image';
-import styled from '@emotion/styled';
-import SEO from 'react-seo-component';
+import React from 'react'
+import { graphql, Link } from 'gatsby'
+import GatsbyImage, { FluidObject } from 'gatsby-image'
+import styled from '@emotion/styled'
+import SEO from 'react-seo-component'
 
-import { Layout } from '../components/Layout';
-import { useSiteMetadata } from '../hooks/useSiteMetadata';
+import { Layout } from '../components/Layout'
+import { useSiteMetadata } from '../hooks/useSiteMetadata'
 
-const IndexWrapper = styled.main``;
+const IndexWrapper = styled.main``
 
-const PostWrapper = styled.div``;
+const PostWrapper = styled.div``
 
 const Image = styled(GatsbyImage)`
   border-radius: 5px;
-`;
+`
 
 type Post = {
-  id: string;
-  excerpt: string;
+  id: string
+  excerpt: string
   frontmatter: {
-    title: string;
-    date: string;
+    title: string
+    date: string
     cover: {
       childImageSharp: {
-        sizes: FluidObject;
-      };
-    };
-  };
+        sizes: FluidObject
+      }
+    }
+  }
   fields: {
-    slug: string;
-  };
-};
+    slug: string
+  }
+}
 
 type HomeProps = {
   data: {
     allMdx: {
-      nodes: Post[];
-    };
-  };
-};
+      nodes: Post[]
+    }
+  }
+}
 
 const Home = ({ data }: HomeProps): React.ReactElement => {
   const {
@@ -50,7 +50,7 @@ const Home = ({ data }: HomeProps): React.ReactElement => {
     siteLanguage,
     siteLocale,
     twitterUsername,
-  } = useSiteMetadata();
+  } = useSiteMetadata()
 
   const posts = data.allMdx.nodes.map(({ excerpt, frontmatter, fields, id }) => (
     <PostWrapper key={id}>
@@ -61,7 +61,7 @@ const Home = ({ data }: HomeProps): React.ReactElement => {
       <p>{frontmatter.date}</p>
       <p>{excerpt}</p>
     </PostWrapper>
-  ));
+  ))
 
   return (
     <Layout>
@@ -78,10 +78,10 @@ const Home = ({ data }: HomeProps): React.ReactElement => {
       />
       <IndexWrapper>{posts}</IndexWrapper>
     </Layout>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
 
 export const query = graphql`
   query SITE_INDEX_QUERY {
@@ -110,4 +110,4 @@ export const query = graphql`
       }
     }
   }
-`;
+`

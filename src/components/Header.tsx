@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link, graphql, useStaticQuery } from 'gatsby';
-import styled from '@emotion/styled';
+import React from 'react'
+import { Link, graphql, useStaticQuery } from 'gatsby'
+import styled from '@emotion/styled'
 // eslint-disable-next-line import/no-extraneous-dependencies
-import kebabCase from 'lodash/kebabCase';
+import kebabCase from 'lodash/kebabCase'
 
 const StyledLink = styled(Link)`
   &:hover,
@@ -10,20 +10,20 @@ const StyledLink = styled(Link)`
   &:visited {
     text-decoration: none;
   }
-`;
+`
 
 const StyledH1 = styled.h1`
   color: #6c6c6c;
   text-align: center;
   margin-bottom: 0.2rem;
-`;
+`
 
-StyledH1.defaultProps = { className: 'site-header' };
+StyledH1.defaultProps = { className: 'site-header' }
 
 const TagsContainer = styled('div')`
   width: max-content;
   margin: 0 auto;
-`;
+`
 
 const TagLink = styled(StyledLink)`
   padding: 2px 4px;
@@ -36,12 +36,12 @@ const TagLink = styled(StyledLink)`
     background-color: #4078c0;
     color: white;
   }
-`;
+`
 
 type HeaderProps = {
-  siteTitle: string;
+  siteTitle: string
   // siteDescription?: string;
-};
+}
 
 export function Header({ siteTitle }: HeaderProps): React.ReactElement {
   const { allMdx } = useStaticQuery(
@@ -54,17 +54,17 @@ export function Header({ siteTitle }: HeaderProps): React.ReactElement {
         }
       }
     `,
-  );
-  const { group } = allMdx;
+  )
+  const { group } = allMdx
 
   const tagsLinks = group.map((groupItem) => {
-    const { tag } = groupItem;
+    const { tag } = groupItem
     return (
       <TagLink key={tag} to={`/tags/${kebabCase(tag)}`}>
         {tag}
       </TagLink>
-    );
-  });
+    )
+  })
 
   return (
     <header>
@@ -73,10 +73,10 @@ export function Header({ siteTitle }: HeaderProps): React.ReactElement {
       </StyledLink>
       <TagsContainer>{tagsLinks}</TagsContainer>
     </header>
-  );
+  )
 }
 
-export default Header;
+export default Header
 // export function Header({ siteTitle, siteDescription }: HeaderProps): React.ReactElement<HeaderProps> {
 //   return (
 //     <Link to="/">

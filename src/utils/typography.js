@@ -1,5 +1,5 @@
-import Typography from 'typography';
-import github from 'typography-theme-github';
+import Typography from 'typography'
+import github from 'typography-theme-github'
 
 // github.overrideThemeStyles = () => ({
 //   body: {
@@ -8,6 +8,6 @@ import github from 'typography-theme-github';
 //     backgroundColor: '#2f2f2f',
 //   },
 // });
-const typography = new Typography(github);
+const typography = new Typography(github)
 
-export default typography;
+export default typography

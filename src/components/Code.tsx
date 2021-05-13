@@ -1,18 +1,18 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
-import Highlight, { defaultProps, Language } from 'prism-react-renderer';
-import styled from '@emotion/styled';
+import React from 'react'
+import Highlight, { defaultProps, Language } from 'prism-react-renderer'
+import styled from '@emotion/styled'
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import theme from 'prism-react-renderer/themes/vsDark';
-import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
-import rangeParser from 'parse-numeric-range';
+import { css, jsx } from '@emotion/core'
+import theme from 'prism-react-renderer/themes/vsDark'
+import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live'
+import rangeParser from 'parse-numeric-range'
 
-import { copyToClipboard } from '../utils/copy-to-clipboard';
+import { copyToClipboard } from '../utils/copy-to-clipboard'
 
 export const PositionWrapper = styled.div`
   position: relative;
-`;
+`
 
 export const Pre = styled.pre`
   text-align: left;
@@ -25,7 +25,7 @@ export const Pre = styled.pre`
     line-height: 1.3em;
     height: 1.3em;
   }
-`;
+`
 
 export const CopyCode = styled.button`
   position: absolute;
@@ -39,25 +39,25 @@ export const CopyCode = styled.button`
   &:hover {
     opacity: 1;
   }
-`;
+`
 
 export const LineNo = styled.span`
   display: inline-block;
   width: 2em;
   user-select: none;
   opacity: 0.3;
-`;
+`
 
 type CodeProps = {
-  codeString: string;
-  language: Language;
-  'react-live': boolean;
-  metastring?: string;
-};
+  codeString: string
+  language: Language
+  'react-live': boolean
+  metastring?: string
+}
 
 const defaultCodeProps = {
   metastring: '',
-};
+}
 
 export const Code = ({ codeString, language, ...props }: CodeProps): React.ReactElement => {
   // eslint-disable-next-line react/destructuring-assignment
@@ -68,16 +68,16 @@ export const Code = ({ codeString, language, ...props }: CodeProps): React.React
         <LiveError />
         <LivePreview />
       </LiveProvider>
-    );
+    )
   }
 
-  const { metastring } = props;
-  let numbers: number[] = [];
-  numbers = rangeParser(metastring);
+  const { metastring } = props
+  let numbers: number[] = []
+  numbers = rangeParser(metastring)
 
   const handleClick = () => {
-    copyToClipboard(codeString);
-  };
+    copyToClipboard(codeString)
+  }
 
   return (
     <Highlight {...defaultProps} code={codeString} language={language} theme={theme}>
@@ -87,24 +87,24 @@ export const Code = ({ codeString, language, ...props }: CodeProps): React.React
             <CopyCode onClick={handleClick}>Copy</CopyCode>
 
             {tokens.map((line, i) => {
-              const [firstToken] = line;
+              const [firstToken] = line
 
-              let highlightClass = css``;
+              let highlightClass = css``
               if (numbers.indexOf(i + 1) !== -1) {
                 highlightClass = css`
                   background-color: rgb(53, 59, 69, 0.9);
-                `;
+                `
               }
 
-              let diffClass = css``;
+              let diffClass = css``
               if (firstToken.content.startsWith('+')) {
                 diffClass = css`
                   background-color: darkgreen;
-                `;
+                `
               } else if (firstToken.content.startsWith('-')) {
                 diffClass = css`
                   background-color: darkred;
-                `;
+                `
               }
 
               return (
@@ -118,15 +118,15 @@ export const Code = ({ codeString, language, ...props }: CodeProps): React.React
                     <span key="token" {...getTokenProps({ token, key })} />
                   ))}
                 </div>
-              );
+              )
             })}
           </Pre>
         </PositionWrapper>
       )}
     </Highlight>
-  );
-};
+  )
+}
 
-Code.defaultProps = defaultCodeProps;
+Code.defaultProps = defaultCodeProps
 
-export default Code;
+export default Code
