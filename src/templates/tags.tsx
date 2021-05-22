@@ -1,10 +1,12 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
+import { FluidObject } from 'gatsby-image'
 import styled from '@emotion/styled'
 import SEO from 'react-seo-component'
 
 import { Layout } from '../components/Layout'
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
+import { DateDisplay } from '../components/DateDisplay'
 
 const IndexWrapper = styled.main``
 const PostWrapper = styled.div``
@@ -15,24 +17,27 @@ type TagProps = {
   }
   data: {
     allMdx: {
-      nodes: [
+      edges: [
         {
-          id: string
-          excerpt: string
-          frontmatter: {
-            title: string
-            date: string
-            cover: {
-              childImageSharp: {
-                sizes: FluidObject
+          node: {
+            id: string
+            excerpt: string
+            frontmatter: {
+              title: string
+              date: string
+              cover: {
+                childImageSharp: {
+                  sizes: FluidObject
+                }
               }
             }
-          }
-          fields: {
-            slug: string
+            fields: {
+              slug: string
+            }
           }
         },
       ]
+      totalCount: number
     }
   }
 }
@@ -61,7 +66,7 @@ const Tags = ({ pageContext, data }: TagProps): React.ReactElement => {
           {/* {frontmatter.cover ? <Image fluid={frontmatter.cover.childImageSharp.sizes} /> : null} */}
           <h2>{frontmatter.title}</h2>
         </Link>
-        <p>{frontmatter.date}</p>
+        <DateDisplay date={frontmatter.date} />
         <p>{excerpt}</p>
       </PostWrapper>
     )
@@ -90,7 +95,7 @@ const Tags = ({ pageContext, data }: TagProps): React.ReactElement => {
 export default Tags
 
 export const pageQuery = graphql`
-  query($tag: String) {
+  query ($tag: String) {
     allMdx(
       limit: 2000
       sort: { fields: [frontmatter___date], order: DESC }
@@ -106,7 +111,7 @@ export const pageQuery = graphql`
           }
           frontmatter {
             title
-            date(formatString: "YYYY MMMM Do")
+            date(formatString: "YYYY-MM-D")
           }
         }
       }
