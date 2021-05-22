@@ -49,3 +49,18 @@ What I quickly learned is that one of the markdown files had to have a cover ima
 _Update_: I've since figured out how to configure things so that I can highlight lines in the code snippets. However, I've since discovered the [gatsby-remark-vscode](https://www.gatsbyjs.org/packages/gatsby-remark-vscode/) library which can not only highlight lines but also display diffs. Once everything is set up, I'll be pulling out old code and setting things up to use it instead of prism-react-renderer.
 
 _Update_ 2: gatsby-remark-vscode did not work the way I wanted it to, so so it's back to rolling my own solution for now
+
+_Update_ 3, 2021-05-22: I just migrated everything from Gatsby2 to Gatsby 3. As a result, I had to make the following change in my (as yet unused) image query
+
+```graphql
+cover {
+  publicURL
+  childImageSharp {
+-    sizes(maxWidth: 2000, traceSVG: { color: "#639" }) {
+-      ...GatsbyImageSharpSizes_tracedSVG
++    fluid(maxWidth: 2000, traceSVG: { color: "#639" }) {
++      ...GatsbyImageSharpFluid_tracedSVG
+    }
+  }
+}
+```

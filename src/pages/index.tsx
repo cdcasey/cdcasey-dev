@@ -23,7 +23,7 @@ type Post = {
     date: string
     cover: {
       childImageSharp: {
-        sizes: FluidObject
+        fluid: FluidObject
       }
     }
   }
@@ -55,7 +55,7 @@ const Home = ({ data }: HomeProps): React.ReactElement => {
   const posts = data.allMdx.nodes.map(({ excerpt, frontmatter, fields, id }) => (
     <PostWrapper key={id}>
       <Link to={fields.slug}>
-        {/* {frontmatter.cover ? <Image fluid={frontmatter.cover.childImageSharp.sizes} /> : null} */}
+        {/* {frontmatter.cover ? <Image fluid={frontmatter.cover.childImageSharp.fluid} /> : null} */}
         <h2>{frontmatter.title}</h2>
       </Link>
       <p>{frontmatter.date}</p>
@@ -98,8 +98,8 @@ export const query = graphql`
           cover {
             publicURL
             childImageSharp {
-              sizes(maxWidth: 2000, traceSVG: { color: "#639" }) {
-                ...GatsbyImageSharpSizes_tracedSVG
+              fluid(maxWidth: 2000, traceSVG: { color: "#639" }) {
+                ...GatsbyImageSharpFluid_tracedSVG
               }
             }
           }
