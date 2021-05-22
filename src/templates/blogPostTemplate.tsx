@@ -2,11 +2,10 @@ import React from 'react'
 import { graphql, Link } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import SEO from 'react-seo-component'
-import styled from '@emotion/styled'
-import moment from 'moment'
 
 import { Layout } from '../components/Layout'
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
+import { DateDisplay } from '../components/DateDisplay'
 
 type PostProps = {
   data: {
@@ -43,7 +42,6 @@ export default function Post({ data, pageContext }: PostProps): React.ReactEleme
 
   const { frontmatter, body, excerpt, fields } = data.mdx
   const { previous, next } = pageContext
-  const publishedDate = moment(frontmatter.date).format('YYYY MMMM Do')
 
   return (
     <Layout>
@@ -65,21 +63,23 @@ export default function Post({ data, pageContext }: PostProps): React.ReactEleme
         datePublished={frontmatter.date}
         dateModified={new Date(Date.now()).toISOString()}
       />
-      <h2>{frontmatter.title}</h2>
-      <DateSection>
-        <time dateTime={frontmatter.date}>{publishedDate}</time>
-      </DateSection>
-      <MDXRenderer>{body}</MDXRenderer>
-      {next && (
-        <Link to={next.fields.slug}>
-          <p>next: {next.frontmatter.title}</p>
-        </Link>
-      )}
-      {previous && (
-        <Link to={previous.fields.slug}>
-          <p>prev: {previous.frontmatter.title}</p>
-        </Link>
-      )}
+      <article>
+        <h2>{frontmatter.title}</h2>
+        <DateDisplay date={frontmatter.date} />
+        <MDXRenderer>{body}</MDXRenderer>
+      </article>
+      <section>
+        {next && (
+          <Link to={next.fields.slug}>
+            <p>next: {next.frontmatter.title}</p>
+          </Link>
+        )}
+        {previous && (
+          <Link to={previous.fields.slug}>
+            <p>prev: {previous.frontmatter.title}</p>
+          </Link>
+        )}
+      </section>
     </Layout>
   )
 }
@@ -102,9 +102,4 @@ export const query = graphql`
       }
     }
   }
-`
-
-const DateSection = styled.p`
-  font-size: 0.9375rem;
-  color: gray;
 `

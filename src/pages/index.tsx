@@ -6,6 +6,7 @@ import SEO from 'react-seo-component'
 
 import { Layout } from '../components/Layout'
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
+import { DateDisplay } from '../components/DateDisplay'
 
 const IndexWrapper = styled.main``
 
@@ -58,7 +59,7 @@ const Home = ({ data }: HomeProps): React.ReactElement => {
         {/* {frontmatter.cover ? <Image fluid={frontmatter.cover.childImageSharp.fluid} /> : null} */}
         <h2>{frontmatter.title}</h2>
       </Link>
-      <p>{frontmatter.date}</p>
+      <DateDisplay date={frontmatter.date} />
       <p>{excerpt}</p>
     </PostWrapper>
   ))
@@ -94,7 +95,7 @@ export const query = graphql`
         excerpt(pruneLength: 250)
         frontmatter {
           title
-          date(formatString: "YYYY MMMM Do")
+          date(formatString: "YYYY-MM-D")
           cover {
             publicURL
             childImageSharp {
