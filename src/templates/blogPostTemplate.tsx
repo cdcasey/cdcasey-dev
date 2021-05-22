@@ -36,18 +36,12 @@ type PostProps = {
 }
 
 export default function Post({ data, pageContext }: PostProps): React.ReactElement {
-  const {
-    image,
-    siteUrl,
-    siteLanguage,
-    siteLocale,
-    twitterUsername,
-    authorName,
-    titleTemplate,
-  } = useSiteMetadata()
+  const { image, siteUrl, siteLanguage, siteLocale, twitterUsername, authorName, titleTemplate } =
+    useSiteMetadata()
 
   const { frontmatter, body, excerpt, fields } = data.mdx
   const { previous, next } = pageContext
+  console.log({ frontmatter }, typeof frontmatter.date)
 
   return (
     <Layout>
@@ -70,7 +64,9 @@ export default function Post({ data, pageContext }: PostProps): React.ReactEleme
         dateModified={new Date(Date.now()).toISOString()}
       />
       <h2>{frontmatter.title}</h2>
-      <p>{frontmatter.date}</p>
+      <p>
+        <time dateTime={frontmatter.date}>{frontmatter.date}</time>
+      </p>
       <MDXRenderer>{body}</MDXRenderer>
       {next && (
         <Link to={next.fields.slug}>
@@ -92,7 +88,7 @@ export const query = graphql`
       body
       frontmatter {
         title
-        date(formatString: "YYYY MMMM Do")
+        date(formatString: "YYYY-MM-D")
         cover {
           publicURL
         }
