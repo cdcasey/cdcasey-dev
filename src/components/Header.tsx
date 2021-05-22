@@ -20,7 +20,7 @@ const StyledH1 = styled.h1`
 
 StyledH1.defaultProps = { className: 'site-header' }
 
-const TagsContainer = styled('div')`
+const TagsContainer = styled('section')`
   width: max-content;
   margin: 0 auto;
 `
@@ -43,7 +43,11 @@ type HeaderProps = {
   // siteDescription?: string;
 }
 
-export function Header({ siteTitle }: HeaderProps): React.ReactElement {
+type groupItemType = {
+  tag: string
+}
+
+export function Header({ siteTitle }: HeaderProps): React.ReactElement<HeaderProps> {
   const { allMdx } = useStaticQuery(
     graphql`
       query TAGS_QUERY {
@@ -57,7 +61,7 @@ export function Header({ siteTitle }: HeaderProps): React.ReactElement {
   )
   const { group } = allMdx
 
-  const tagsLinks = group.map((groupItem) => {
+  const tagsLinks = group.map((groupItem: groupItemType) => {
     const { tag } = groupItem
     return (
       <TagLink key={tag} to={`/tags/${kebabCase(tag)}`}>
