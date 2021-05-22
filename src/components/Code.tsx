@@ -3,7 +3,7 @@ import React from 'react'
 import Highlight, { defaultProps, Language } from 'prism-react-renderer'
 import styled from '@emotion/styled'
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core'
+import { css, jsx } from '@emotion/react'
 import theme from 'prism-react-renderer/themes/vsDark'
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live'
 import rangeParser from 'parse-numeric-range'
