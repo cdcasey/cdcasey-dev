@@ -2,6 +2,8 @@ import React from 'react'
 import { graphql, Link } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import SEO from 'react-seo-component'
+import styled from '@emotion/styled'
+import moment from 'moment'
 
 import { Layout } from '../components/Layout'
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
@@ -41,7 +43,7 @@ export default function Post({ data, pageContext }: PostProps): React.ReactEleme
 
   const { frontmatter, body, excerpt, fields } = data.mdx
   const { previous, next } = pageContext
-  console.log({ frontmatter }, typeof frontmatter.date)
+  const publishedDate = moment(frontmatter.date).format('YYYY MMMM Do')
 
   return (
     <Layout>
@@ -64,9 +66,9 @@ export default function Post({ data, pageContext }: PostProps): React.ReactEleme
         dateModified={new Date(Date.now()).toISOString()}
       />
       <h2>{frontmatter.title}</h2>
-      <p>
-        <time dateTime={frontmatter.date}>{frontmatter.date}</time>
-      </p>
+      <DateSection>
+        <time dateTime={frontmatter.date}>{publishedDate}</time>
+      </DateSection>
       <MDXRenderer>{body}</MDXRenderer>
       {next && (
         <Link to={next.fields.slug}>
@@ -100,4 +102,9 @@ export const query = graphql`
       }
     }
   }
+`
+
+const DateSection = styled.p`
+  font-size: 0.9375rem;
+  color: gray;
 `
