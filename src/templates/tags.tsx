@@ -1,13 +1,12 @@
 import React from 'react'
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
+import { FluidObject } from 'gatsby-image'
 import styled from '@emotion/styled'
 import SEO from 'react-seo-component'
 
 import { Layout } from '../components/Layout'
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
-
-const IndexWrapper = styled.main``
-const PostWrapper = styled.div``
+import { ArticleListing } from '../components/ArticleListing'
 
 type TagProps = {
   pageContext: {
@@ -15,24 +14,27 @@ type TagProps = {
   }
   data: {
     allMdx: {
-      nodes: [
+      edges: [
         {
-          id: string
-          excerpt: string
-          frontmatter: {
-            title: string
-            date: string
-            cover: {
-              childImageSharp: {
-                sizes: FluidObject
+          node: {
+            id: string
+            excerpt: string
+            frontmatter: {
+              title: string
+              date: string
+              cover: {
+                childImageSharp: {
+                  sizes: FluidObject
+                }
               }
             }
-          }
-          fields: {
-            slug: string
+            fields: {
+              slug: string
+            }
           }
         },
       ]
+      totalCount: number
     }
   }
 }
@@ -56,14 +58,13 @@ const Tags = ({ pageContext, data }: TagProps): React.ReactElement => {
   const posts = edges.map(({ node }) => {
     const { id, excerpt, fields, frontmatter } = node
     return (
-      <PostWrapper key={id}>
-        <Link to={fields.slug}>
-          {/* {frontmatter.cover ? <Image fluid={frontmatter.cover.childImageSharp.sizes} /> : null} */}
-          <h2>{frontmatter.title}</h2>
-        </Link>
-        <p>{frontmatter.date}</p>
-        <p>{excerpt}</p>
-      </PostWrapper>
+      <ArticleListing
+        key={id}
+        slug={fields.slug}
+        title={frontmatter.title}
+        datePublished={frontmatter.date}
+        excerpt={excerpt}
+      />
     )
   })
 
@@ -80,9 +81,9 @@ const Tags = ({ pageContext, data }: TagProps): React.ReactElement => {
         twitterUsername={twitterUsername}
       />
 
-      <h5>{tagHeader}</h5>
+      <StyledTagHeader>{tagHeader}</StyledTagHeader>
 
-      <IndexWrapper>{posts}</IndexWrapper>
+      <section>{posts}</section>
     </Layout>
   )
 }
@@ -90,7 +91,7 @@ const Tags = ({ pageContext, data }: TagProps): React.ReactElement => {
 export default Tags
 
 export const pageQuery = graphql`
-  query($tag: String) {
+  query ($tag: String) {
     allMdx(
       limit: 2000
       sort: { fields: [frontmatter___date], order: DESC }
@@ -106,10 +107,15 @@ export const pageQuery = graphql`
           }
           frontmatter {
             title
-            date(formatString: "YYYY MMMM Do")
+            date(formatString: "YYYY-MM-D")
           }
         }
       }
     }
   }
+`
+
+const StyledTagHeader = styled.h3`
+  font-size: 0.875rem;
+  color: #6c6c6c;
 `

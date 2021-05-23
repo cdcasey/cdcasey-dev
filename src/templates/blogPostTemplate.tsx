@@ -5,6 +5,7 @@ import SEO from 'react-seo-component'
 
 import { Layout } from '../components/Layout'
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
+import { DateDisplay } from '../components/DateDisplay'
 
 type PostProps = {
   data: {
@@ -36,15 +37,8 @@ type PostProps = {
 }
 
 export default function Post({ data, pageContext }: PostProps): React.ReactElement {
-  const {
-    image,
-    siteUrl,
-    siteLanguage,
-    siteLocale,
-    twitterUsername,
-    authorName,
-    titleTemplate,
-  } = useSiteMetadata()
+  const { image, siteUrl, siteLanguage, siteLocale, twitterUsername, authorName, titleTemplate } =
+    useSiteMetadata()
 
   const { frontmatter, body, excerpt, fields } = data.mdx
   const { previous, next } = pageContext
@@ -69,19 +63,23 @@ export default function Post({ data, pageContext }: PostProps): React.ReactEleme
         datePublished={frontmatter.date}
         dateModified={new Date(Date.now()).toISOString()}
       />
-      <h2>{frontmatter.title}</h2>
-      <p>{frontmatter.date}</p>
-      <MDXRenderer>{body}</MDXRenderer>
-      {next && (
-        <Link to={next.fields.slug}>
-          <p>next: {next.frontmatter.title}</p>
-        </Link>
-      )}
-      {previous && (
-        <Link to={previous.fields.slug}>
-          <p>prev: {previous.frontmatter.title}</p>
-        </Link>
-      )}
+      <article>
+        <h2>{frontmatter.title}</h2>
+        <DateDisplay date={frontmatter.date} />
+        <MDXRenderer>{body}</MDXRenderer>
+      </article>
+      <section>
+        {next && (
+          <Link to={next.fields.slug}>
+            <p>next: {next.frontmatter.title}</p>
+          </Link>
+        )}
+        {previous && (
+          <Link to={previous.fields.slug}>
+            <p>prev: {previous.frontmatter.title}</p>
+          </Link>
+        )}
+      </section>
     </Layout>
   )
 }
@@ -92,7 +90,7 @@ export const query = graphql`
       body
       frontmatter {
         title
-        date(formatString: "YYYY MMMM Do")
+        date(formatString: "YYYY-MM-D")
         cover {
           publicURL
         }

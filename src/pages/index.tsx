@@ -1,19 +1,11 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
-import GatsbyImage, { FluidObject } from 'gatsby-image'
-import styled from '@emotion/styled'
+import { FluidObject } from 'gatsby-image'
 import SEO from 'react-seo-component'
 
 import { Layout } from '../components/Layout'
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
-
-const IndexWrapper = styled.main``
-
-const PostWrapper = styled.div``
-
-const Image = styled(GatsbyImage)`
-  border-radius: 5px;
-`
+import { ArticleListing } from '../components/ArticleListing'
 
 type Post = {
   id: string
@@ -53,14 +45,13 @@ const Home = ({ data }: HomeProps): React.ReactElement => {
   } = useSiteMetadata()
 
   const posts = data.allMdx.nodes.map(({ excerpt, frontmatter, fields, id }) => (
-    <PostWrapper key={id}>
-      <Link to={fields.slug}>
-        {/* {frontmatter.cover ? <Image fluid={frontmatter.cover.childImageSharp.fluid} /> : null} */}
-        <h2>{frontmatter.title}</h2>
-      </Link>
-      <p>{frontmatter.date}</p>
-      <p>{excerpt}</p>
-    </PostWrapper>
+    <ArticleListing
+      key={id}
+      slug={fields.slug}
+      title={frontmatter.title}
+      datePublished={frontmatter.date}
+      excerpt={excerpt}
+    />
   ))
 
   return (
@@ -76,7 +67,7 @@ const Home = ({ data }: HomeProps): React.ReactElement => {
         siteLocale={siteLocale}
         twitterUsername={twitterUsername}
       />
-      <IndexWrapper>{posts}</IndexWrapper>
+      <section>{posts}</section>
     </Layout>
   )
 }
@@ -94,7 +85,7 @@ export const query = graphql`
         excerpt(pruneLength: 250)
         frontmatter {
           title
-          date(formatString: "YYYY MMMM Do")
+          date(formatString: "YYYY-MM-D")
           cover {
             publicURL
             childImageSharp {
