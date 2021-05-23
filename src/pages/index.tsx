@@ -5,7 +5,7 @@ import SEO from 'react-seo-component'
 
 import { Layout } from '../components/Layout'
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
-import { DateDisplay } from '../components/DateDisplay'
+import { ArticleListing } from '../components/ArticleListing'
 
 type Post = {
   id: string
@@ -45,13 +45,13 @@ const Home = ({ data }: HomeProps): React.ReactElement => {
   } = useSiteMetadata()
 
   const posts = data.allMdx.nodes.map(({ excerpt, frontmatter, fields, id }) => (
-    <article key={id}>
-      <Link to={fields.slug}>
-        <h2>{frontmatter.title}</h2>
-      </Link>
-      <DateDisplay date={frontmatter.date} />
-      <p>{excerpt}</p>
-    </article>
+    <ArticleListing
+      key={id}
+      slug={fields.slug}
+      title={frontmatter.title}
+      datePublished={frontmatter.date}
+      excerpt={excerpt}
+    />
   ))
 
   return (

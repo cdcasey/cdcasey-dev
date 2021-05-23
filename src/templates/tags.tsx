@@ -1,15 +1,12 @@
 import React from 'react'
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import { FluidObject } from 'gatsby-image'
 import styled from '@emotion/styled'
 import SEO from 'react-seo-component'
 
 import { Layout } from '../components/Layout'
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
-import { DateDisplay } from '../components/DateDisplay'
-
-const IndexWrapper = styled.main``
-const PostWrapper = styled.div``
+import { ArticleListing } from '../components/ArticleListing'
 
 type TagProps = {
   pageContext: {
@@ -61,14 +58,13 @@ const Tags = ({ pageContext, data }: TagProps): React.ReactElement => {
   const posts = edges.map(({ node }) => {
     const { id, excerpt, fields, frontmatter } = node
     return (
-      <PostWrapper key={id}>
-        <Link to={fields.slug}>
-          {/* {frontmatter.cover ? <Image fluid={frontmatter.cover.childImageSharp.sizes} /> : null} */}
-          <h2>{frontmatter.title}</h2>
-        </Link>
-        <DateDisplay date={frontmatter.date} />
-        <p>{excerpt}</p>
-      </PostWrapper>
+      <ArticleListing
+        key={id}
+        slug={fields.slug}
+        title={frontmatter.title}
+        datePublished={frontmatter.date}
+        excerpt={excerpt}
+      />
     )
   })
 
@@ -85,9 +81,9 @@ const Tags = ({ pageContext, data }: TagProps): React.ReactElement => {
         twitterUsername={twitterUsername}
       />
 
-      <h5>{tagHeader}</h5>
+      <StyledTagHeader>{tagHeader}</StyledTagHeader>
 
-      <IndexWrapper>{posts}</IndexWrapper>
+      <section>{posts}</section>
     </Layout>
   )
 }
@@ -117,4 +113,9 @@ export const pageQuery = graphql`
       }
     }
   }
+`
+
+const StyledTagHeader = styled.h3`
+  font-size: 0.875rem;
+  color: #6c6c6c;
 `
