@@ -1,5 +1,5 @@
 {
-  "name": "test-blog",
+  "name": "cdcasey-dev",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -10,12 +10,16 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/check": "^0.7.0",
     "@astrojs/mdx": "^3.1.2",
     "@astrojs/rss": "^4.0.7",
     "@astrojs/sitemap": "^3.1.6",
     "astro": "^4.11.3",
-    "@astrojs/check": "^0.7.0",
     "typescript": "^5.5.2"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.2",
+    "prettier-plugin-astro": "^0.14.0"
   },
   "packageManager": "pnpm@9.4.0+sha256.b6fd0bfda555e7e584ad7e56b30c68b01d5a04f9ee93989f4b93ca8473c49c74"
 }
